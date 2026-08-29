@@ -2,9 +2,19 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Renan Pietro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Renan Pietro — Desenvolvedor Full-stack</title>
 <meta name="description" content="Renan Pietro — desenvolvedor full-stack. Sites e aplicações feitos com atenção ao design e ao código, projeto por projeto.">
+<meta name="theme-color" content="#EDEAE1">
+<meta name="color-scheme" content="light">
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Renan Pietro">
+<meta property="og:title" content="Renan Pietro — Desenvolvedor Full-stack">
+<meta property="og:description" content="Sites e aplicações feitos com atenção ao design e ao código, projeto por projeto.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340..500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -38,7 +48,7 @@
 
 *{ margin:0; padding:0; box-sizing:border-box; }
 
-html{ scroll-behavior:smooth; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; text-size-adjust:100%; }
 
 body{
   background:var(--bone);
@@ -48,6 +58,14 @@ body{
   line-height:1.5;
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
+  overscroll-behavior-y:none;
+  -webkit-tap-highlight-color:transparent;
+}
+
+a, button{ -webkit-tap-highlight-color:transparent; }
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
 }
 
 a{ color:inherit; text-decoration:none; }
@@ -149,8 +167,9 @@ svg{ display:block; }
 .nav__cta:hover{ background:var(--accent); transform:translateY(-1px); }
 
 .nav__burger{
-  display:none; width:38px; height:38px; border-radius:50%;
+  display:none; width:44px; height:44px; border-radius:50%;
   align-items:center; justify-content:center; flex-direction:column; gap:5px;
+  flex-shrink:0;
 }
 .nav__burger span{
   width:18px; height:1.4px; background:var(--ink); transition:transform .3s var(--ease-out), opacity .3s;
@@ -163,7 +182,7 @@ svg{ display:block; }
   position:fixed; inset:0; z-index:90;
   background:var(--bone);
   flex-direction:column; align-items:flex-start; justify-content:center; gap:28px;
-  padding:0 var(--gutter);
+  padding:calc(var(--gutter) + env(safe-area-inset-top)) var(--gutter) calc(var(--gutter) + env(safe-area-inset-bottom));
   opacity:0; visibility:hidden; transform:translateY(-8px);
   transition:opacity .4s var(--ease-out), transform .4s var(--ease-out), visibility .4s;
 }
@@ -476,22 +495,65 @@ svg{ display:block; }
   .nav__mobile{ display:flex; }
 
   .stack{ display:none; }
-  .hero{ padding-top:130px; }
+  .hero{ padding-top:130px; padding-bottom:48px; min-height:auto; }
 
+  .about{ padding:88px 0 96px; }
   .about__inner{ grid-template-columns:1fr; gap:40px; }
   .about__photo{ max-width:320px; }
   .about__secondary{ grid-template-columns:1fr; gap:28px; max-width:100%; }
 
+  .specialties{ padding:72px 0; }
+  .tech{ padding:72px 0 96px; }
+
   .spec-item{ flex-direction:column; align-items:flex-start; gap:8px; }
   .spec-item__desc{ text-align:left; max-width:100%; }
 
+  .contact{ padding:96px 0 80px; }
   .contact__phone{ flex-wrap:wrap; }
 }
 
 @media (max-width: 560px){
   :root{ --gutter:20px; }
-  .section-head{ flex-direction:column; align-items:flex-start; gap:14px; }
+
+  .nav{ padding-top:calc(16px + env(safe-area-inset-top)); }
+  .nav.is-scrolled{ padding-top:calc(12px + env(safe-area-inset-top)); }
+
+  .section-head{ flex-direction:column; align-items:flex-start; gap:14px; margin-bottom:44px; }
   .hero__scroll{ display:none; }
+
+  .hero{ padding-top:112px; padding-bottom:40px; }
+  .hero__title{ line-height:1.02; }
+  .hero__foot{ margin-top:36px; }
+  .hero__desc{ font-size:15.5px; max-width:100%; }
+  .hero__actions{ gap:10px; }
+  .btn{ width:100%; justify-content:center; padding:16px 20px; }
+
+  .about{ padding:64px 0 72px; }
+  .about__photo{ max-width:100%; }
+
+  .specialties{ padding:56px 0; }
+  .spec-item{ padding:22px 0; }
+  .spec-item__name{ font-size:22px; }
+  .spec-item__desc{ font-size:13.5px; }
+
+  .tech{ padding:56px 0 80px; }
+  .tech-grid{ gap:10px; }
+  .tech-item{ font-size:13px; padding:10px 16px; }
+
+  .contact{ padding:72px 0 64px; }
+  .contact__phone{ padding-bottom:18px; margin-top:40px; }
+  .contact__phone-number{ font-size:26px; }
+  .contact__social{ gap:28px; margin-top:28px; }
+
+  .footer{ padding:28px 20px calc(28px + env(safe-area-inset-bottom)); }
+  .footer__inner{ flex-direction:column; align-items:flex-start; gap:16px; padding-top:20px; }
+
+  .nav__mobile a{ font-size:28px; }
+}
+
+@media (max-width: 380px){
+  .hero__title{ font-size:clamp(38px, 11vw, 46px); }
+  .contact__title{ font-size:clamp(32px, 9vw, 42px); }
 }
 
 /* ============================================================
@@ -522,7 +584,7 @@ svg{ display:block; }
       <span></span><span></span>
     </button>
   </div>
-  <div class="nav__mobile" id="navMobile">
+  <div class="nav__mobile" id="navMobile" aria-hidden="true">
     <a href="#about">Sobre</a>
     <a href="#contact">Contato</a>
     <a href="https://wa.me/5566999095764" target="_blank" rel="noopener" class="nav__mobile-cta">Iniciar projeto ↗</a>
@@ -603,7 +665,7 @@ svg{ display:block; }
       </div>
 
       <div class="about__photo" data-io>
-        <div class="about__photo-frame"> <img src="eu.JPEG" alt="Renan Pietro">
+        <div class="about__photo-frame"> <img src="eu.JPEG" alt="Renan Pietro" loading="lazy" decoding="async" width="640" height="800">
           <div class="about__photo-mark">
             <span></span>
           </div>
@@ -737,17 +799,30 @@ svg{ display:block; }
   ---------------------------------------------------------- */
   const burger = document.getElementById('burger');
   const navMobile = document.getElementById('navMobile');
-  burger.addEventListener('click', () => {
-    const open = navMobile.classList.toggle('is-open');
+  let scrollY = 0;
+
+  function setMenu(open){
+    navMobile.classList.toggle('is-open', open);
     burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    document.body.style.overflow = open ? 'hidden' : '';
+    navMobile.setAttribute('aria-hidden', open ? 'false' : 'true');
+    if (open){
+      scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = -scrollY + 'px';
+      document.body.style.width = '100%';
+    } else {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      window.scrollTo(0, scrollY);
+    }
+  }
+
+  burger.addEventListener('click', () => {
+    setMenu(!navMobile.classList.contains('is-open'));
   });
   navMobile.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      navMobile.classList.remove('is-open');
-      burger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    });
+    a.addEventListener('click', () => setMenu(false));
   });
 
   /* ----------------------------------------------------------
