@@ -2,19 +2,9 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Renan Pietro — Desenvolvedor Full-stack</title>
-<meta name="description" content="Renan Pietro — desenvolvedor full-stack. Sites e aplicações feitos com atenção ao design e ao código, projeto por projeto.">
-<meta name="theme-color" content="#EDEAE1">
-<meta name="color-scheme" content="light">
-<meta name="format-detection" content="telephone=no">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Renan Pietro">
-<meta property="og:title" content="Renan Pietro — Desenvolvedor Full-stack">
-<meta property="og:description" content="Sites e aplicações feitos com atenção ao design e ao código, projeto por projeto.">
-<meta property="og:type" content="website">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Renan Pietro | Desenvolvedor Full-stack</title>
+<meta name="description" content="Renan Pietro — Desenvolvedor Full-stack. Desenvolvimento de sites e aplicações web com foco em arquitetura de código, usabilidade e performance.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340..500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -48,7 +38,7 @@
 
 *{ margin:0; padding:0; box-sizing:border-box; }
 
-html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+html{ scroll-behavior:smooth; }
 
 body{
   background:var(--bone);
@@ -58,14 +48,6 @@ body{
   line-height:1.5;
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
-  overscroll-behavior-y:none;
-  -webkit-tap-highlight-color:transparent;
-}
-
-a, button{ -webkit-tap-highlight-color:transparent; }
-
-@media (prefers-reduced-motion: reduce){
-  html{ scroll-behavior:auto; }
 }
 
 a{ color:inherit; text-decoration:none; }
@@ -167,9 +149,8 @@ svg{ display:block; }
 .nav__cta:hover{ background:var(--accent); transform:translateY(-1px); }
 
 .nav__burger{
-  display:none; width:44px; height:44px; border-radius:50%;
+  display:none; width:38px; height:38px; border-radius:50%;
   align-items:center; justify-content:center; flex-direction:column; gap:5px;
-  flex-shrink:0;
 }
 .nav__burger span{
   width:18px; height:1.4px; background:var(--ink); transition:transform .3s var(--ease-out), opacity .3s;
@@ -182,7 +163,7 @@ svg{ display:block; }
   position:fixed; inset:0; z-index:90;
   background:var(--bone);
   flex-direction:column; align-items:flex-start; justify-content:center; gap:28px;
-  padding:calc(var(--gutter) + env(safe-area-inset-top)) var(--gutter) calc(var(--gutter) + env(safe-area-inset-bottom));
+  padding:0 var(--gutter);
   opacity:0; visibility:hidden; transform:translateY(-8px);
   transition:opacity .4s var(--ease-out), transform .4s var(--ease-out), visibility .4s;
 }
@@ -206,7 +187,13 @@ svg{ display:block; }
   padding:150px var(--gutter) 60px;
   max-width:var(--container); margin:0 auto;
 }
-.hero__grid{ max-width:760px; }
+.hero__inner{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:clamp(40px,6vw,90px);
+  align-items:center;
+}
+.hero__grid{ max-width:640px; }
 
 .hero__eyebrow{
   font-family:var(--font-mono); font-size:12px;
@@ -263,51 +250,27 @@ svg{ display:block; }
   font-family:var(--font-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);
 }
 
-/* --- Signature element: interface stack --- */
-.stack{
-  position:absolute;
-  right:var(--gutter);
-  top:52%;
-  transform:translateY(-50%);
-  width:min(360px, 30vw);
-  height:420px;
-  perspective:1400px;
-}
-.stack__frame{
-  position:absolute; inset:0;
-  background:var(--bone-deep);
+/* --- Hero photo: presentation portrait --- */
+.hero__photo{
+  position:relative;
+  justify-self:end;
+  width:min(300px, 22vw);
+  aspect-ratio:4/5;
+  border-radius:18px;
+  overflow:hidden;
   border:1px solid var(--line);
-  border-radius:14px;
-  box-shadow:0 30px 60px -30px rgba(21,21,15,0.35);
-  padding:16px;
-  transform-style:preserve-3d;
-  transition:transform .5s var(--ease-out);
+  box-shadow:0 40px 90px -40px rgba(21,21,15,0.35);
+  background:linear-gradient(160deg, var(--panel), var(--bone-deep));
+  opacity:0;
+  transform:translateY(16px);
 }
-.stack__frame--back{ transform:translate(26px,-34px) rotate(-6deg) scale(.92); z-index:1; opacity:.75; }
-.stack__frame--mid{ transform:translate(10px,-6px) rotate(-2deg) scale(.97); z-index:2; opacity:.9; }
-.stack__frame--front{ transform:translate(-16px,20px) rotate(3deg); z-index:3; background:var(--panel); }
-
-.stack__bar{ display:flex; gap:6px; margin-bottom:14px; }
-.stack__bar i{ width:6px; height:6px; border-radius:50%; background:var(--line-strong); }
-
-.stack__lines span{
-  display:block; height:8px; border-radius:3px; background:var(--line-strong); margin-bottom:9px;
+.hero__photo img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
 }
-.stack__block{
-  margin-top:14px; height:96px; border-radius:8px;
-  background:linear-gradient(155deg, var(--accent), var(--accent-ink));
-  opacity:.9;
-}
-.stack__grid{
-  display:grid; grid-template-columns:1fr 1fr; gap:8px; height:calc(100% - 34px);
-}
-.stack__grid div{ background:var(--line); border-radius:6px; }
-.stack__cta{
-  margin-top:16px; width:64%; height:30px; border-radius:100px; background:var(--ink);
-}
-.stack__tag{
-  position:absolute; bottom:-30px; left:0;
-  font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); letter-spacing:.05em;
+.hero__photo-caption{
+  position:absolute; left:0; bottom:-30px;
+  font-family:var(--font-mono); font-size:11px; letter-spacing:.05em;
+  color:var(--ink-faint); white-space:nowrap;
 }
 
 /* ============================================================
@@ -324,12 +287,27 @@ svg{ display:block; }
 }
 
 /* ============================================================
-   ABOUT
+   INTRO — apresentação profissional
 ============================================================ */
-.about{ padding:120px 0 160px; border-top:1px solid var(--line); }
+.intro{ padding:110px 0 40px; border-top:1px solid var(--line); }
+.intro__inner{ max-width:760px; margin:0 auto; padding:0 var(--gutter); }
+.intro__lead{
+  font-family:var(--font-display); font-weight:420;
+  font-size:clamp(26px, 3.6vw, 42px); line-height:1.3; letter-spacing:-.01em;
+  margin-top:20px; color:var(--ink-soft);
+}
+.intro__lead span{ color:var(--ink); }
+.intro__text{
+  margin-top:26px; max-width:600px;
+  font-size:15.5px; line-height:1.75; color:var(--ink-soft);
+}
+
+/* ============================================================
+   ABOUT / VISÃO TÉCNICA
+============================================================ */
+.about{ padding:100px 0 160px; border-top:1px solid var(--line); }
 .about__inner{
-  max-width:var(--container); margin:0 auto; padding:0 var(--gutter);
-  display:grid; grid-template-columns:1.3fr 0.8fr; gap:80px; align-items:start;
+  max-width:760px; margin:0 auto; padding:0 var(--gutter);
 }
 .about__lead{
   font-family:var(--font-display); font-weight:420;
@@ -339,34 +317,12 @@ svg{ display:block; }
 .about__lead span{ color:var(--ink); }
 .about__secondary{
   display:grid; grid-template-columns:1fr; gap:24px;
-  margin-top:44px; max-width:480px;
+  margin-top:44px; max-width:600px;
 }
 .about__secondary p{ color:var(--ink-soft); font-size:15.5px; line-height:1.75; }
 
-.about__photo{ position:relative; }
-.about__photo-frame{
-  position:relative; width:100%; aspect-ratio:4/5; overflow:hidden;
-  border-radius:14px; border:1px solid var(--line);
-  background:linear-gradient(160deg, var(--panel), var(--bone-deep));
-  display:flex; align-items:center; justify-content:center;
-}
-.about__photo-frame img{
-  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-}
-.about__photo-mark{
-  width:64px; height:64px; border-radius:50%; border:1px solid var(--line-strong);
-  display:flex; align-items:center; justify-content:center;
-}
-.about__photo-mark span{
-  width:8px; height:8px; border-radius:50%; background:var(--accent);
-}
-.about__photo-caption{
-  margin-top:16px; font-family:var(--font-mono); font-size:12px; letter-spacing:.05em;
-  color:var(--ink-faint); text-align:center;
-}
-
 /* ============================================================
-   SPECIALTIES
+   SPECIALTIES / METODOLOGIA
 ============================================================ */
 .specialties{ padding:100px 0; border-top:1px solid var(--line); }
 .spec-list{ max-width:var(--container); margin:0 auto; padding:0 var(--gutter); }
@@ -388,21 +344,29 @@ svg{ display:block; }
 .spec-item:hover .spec-item__desc{ color:var(--ink-soft); }
 
 /* ============================================================
-   TECH
+   TOOLS / SKILLS
 ============================================================ */
-.tech{ padding:100px 0 140px; border-top:1px solid var(--line); }
-.tech-grid{
-  max-width:var(--container); margin:0 auto; padding:0 var(--gutter);
-  display:flex; flex-wrap:wrap; gap:16px 14px;
+.tools{ padding:100px 0 140px; border-top:1px solid var(--line); }
+.tool-list{ max-width:var(--container); margin:0 auto; padding:0 var(--gutter); }
+.tool-item{
+  display:flex; align-items:baseline; gap:28px;
+  padding:30px 0; border-top:1px solid var(--line);
+  transition:padding-left .4s var(--ease-out), color .4s;
 }
-.tech-item{
-  font-family:var(--font-mono); font-size:14px; letter-spacing:.03em;
-  border:1px solid var(--line); border-radius:100px; padding:12px 22px;
-  transition:border-color .3s, color .3s, transform .3s var(--ease-out), background .3s;
+.tool-item:last-child{ border-bottom:1px solid var(--line); }
+.tool-item__index{
+  font-family:var(--font-mono); font-size:12.5px; letter-spacing:.05em;
+  color:var(--ink-faint); flex-shrink:0; width:26px;
 }
-.tech-item:hover{
-  border-color:var(--ink); color:var(--bone); background:var(--ink); transform:translateY(-2px);
+.tool-item__name{
+  font-family:var(--font-display); font-weight:440; font-size:clamp(22px,3vw,30px);
+  letter-spacing:-.01em; flex-shrink:0; min-width:230px;
 }
+.tool-item__desc{
+  font-family:var(--font-body); font-size:14.5px; line-height:1.6; color:var(--ink-faint);
+}
+.tool-item:hover{ padding-left:18px; color:var(--accent); }
+.tool-item:hover .tool-item__desc{ color:var(--ink-soft); }
 
 /* ============================================================
    CONTACT
@@ -494,66 +458,25 @@ svg{ display:block; }
   .nav__burger{ display:flex; }
   .nav__mobile{ display:flex; }
 
-  .stack{ display:none; }
-  .hero{ padding-top:130px; padding-bottom:48px; min-height:auto; }
+  .hero{ padding-top:130px; }
+  .hero__inner{ grid-template-columns:1fr; gap:44px; }
+  .hero__photo{ justify-self:center; width:min(280px,64vw); }
 
-  .about{ padding:88px 0 96px; }
-  .about__inner{ grid-template-columns:1fr; gap:40px; }
-  .about__photo{ max-width:320px; }
   .about__secondary{ grid-template-columns:1fr; gap:28px; max-width:100%; }
-
-  .specialties{ padding:72px 0; }
-  .tech{ padding:72px 0 96px; }
 
   .spec-item{ flex-direction:column; align-items:flex-start; gap:8px; }
   .spec-item__desc{ text-align:left; max-width:100%; }
 
-  .contact{ padding:96px 0 80px; }
+  .tool-item{ flex-direction:column; align-items:flex-start; gap:8px; }
+  .tool-item__name{ min-width:0; }
+
   .contact__phone{ flex-wrap:wrap; }
 }
 
 @media (max-width: 560px){
   :root{ --gutter:20px; }
-
-  .nav{ padding-top:calc(16px + env(safe-area-inset-top)); }
-  .nav.is-scrolled{ padding-top:calc(12px + env(safe-area-inset-top)); }
-
-  .section-head{ flex-direction:column; align-items:flex-start; gap:14px; margin-bottom:44px; }
+  .section-head{ flex-direction:column; align-items:flex-start; gap:14px; }
   .hero__scroll{ display:none; }
-
-  .hero{ padding-top:112px; padding-bottom:40px; }
-  .hero__title{ line-height:1.02; }
-  .hero__foot{ margin-top:36px; }
-  .hero__desc{ font-size:15.5px; max-width:100%; }
-  .hero__actions{ gap:10px; }
-  .btn{ width:100%; justify-content:center; padding:16px 20px; }
-
-  .about{ padding:64px 0 72px; }
-  .about__photo{ max-width:100%; }
-
-  .specialties{ padding:56px 0; }
-  .spec-item{ padding:22px 0; }
-  .spec-item__name{ font-size:22px; }
-  .spec-item__desc{ font-size:13.5px; }
-
-  .tech{ padding:56px 0 80px; }
-  .tech-grid{ gap:10px; }
-  .tech-item{ font-size:13px; padding:10px 16px; }
-
-  .contact{ padding:72px 0 64px; }
-  .contact__phone{ padding-bottom:18px; margin-top:40px; }
-  .contact__phone-number{ font-size:26px; }
-  .contact__social{ gap:28px; margin-top:28px; }
-
-  .footer{ padding:28px 20px calc(28px + env(safe-area-inset-bottom)); }
-  .footer__inner{ flex-direction:column; align-items:flex-start; gap:16px; padding-top:20px; }
-
-  .nav__mobile a{ font-size:28px; }
-}
-
-@media (max-width: 380px){
-  .hero__title{ font-size:clamp(38px, 11vw, 46px); }
-  .contact__title{ font-size:clamp(32px, 9vw, 42px); }
 }
 
 /* ============================================================
@@ -562,7 +485,7 @@ svg{ display:block; }
 @media (prefers-reduced-motion: reduce){
   *{ animation-duration:.001ms !important; animation-iteration-count:1 !important;
      transition-duration:.001ms !important; scroll-behavior:auto !important; }
-  [data-reveal], [data-io], .hero__title .word{ opacity:1 !important; transform:none !important; }
+  [data-reveal], [data-io], .hero__title .word, .hero__photo{ opacity:1 !important; transform:none !important; }
 }
 </style>
 </head>
@@ -574,7 +497,8 @@ svg{ display:block; }
   <div class="nav__inner">
     <a href="#top" class="nav__mark" data-reveal>Renan<span> Pietro</span></a>
     <nav class="nav__links" data-reveal>
-      <a href="#about"><span>Sobre</span></a>
+      <a href="#tools"><span>Ferramentas</span></a>
+      <a href="#about"><span>Abordagem</span></a>
       <a href="#contact"><span>Contato</span></a>
     </nav>
     <a class="nav__cta" href="https://wa.me/5566999095764?text=Ol%C3%A1%2C%20Renan!%20Vi%20seu%20portf%C3%B3lio%20e%20quero%20conversar%20sobre%20um%20projeto." target="_blank" rel="noopener" data-reveal>
@@ -584,8 +508,9 @@ svg{ display:block; }
       <span></span><span></span>
     </button>
   </div>
-  <div class="nav__mobile" id="navMobile" aria-hidden="true">
-    <a href="#about">Sobre</a>
+  <div class="nav__mobile" id="navMobile">
+    <a href="#tools">Ferramentas</a>
+    <a href="#about">Abordagem</a>
     <a href="#contact">Contato</a>
     <a href="https://wa.me/5566999095764" target="_blank" rel="noopener" class="nav__mobile-cta">Iniciar projeto ↗</a>
   </div>
@@ -594,50 +519,34 @@ svg{ display:block; }
 <main id="top">
 
   <section class="hero" id="hero">
-    <div class="hero__grid">
-      <p class="hero__eyebrow" data-reveal>Renan Pietro — Desenvolvedor Full-stack</p>
+    <div class="hero__inner">
+      <div class="hero__grid">
+        <p class="hero__eyebrow" data-reveal>Renan Pietro — Desenvolvedor Full-stack</p>
 
-      <h1 class="hero__title">
-        <span class="line" data-reveal-line><span class="word">Eu</span> <span class="word">crio</span> <span class="word">coisas</span></span>
-        <span class="line" data-reveal-line><span class="word">para</span> <span class="word">a</span> <span class="word">internet.</span></span>
-      </h1>
+        <h1 class="hero__title">
+          <span class="line" data-reveal-line><span class="word">Código</span> <span class="word">estruturado,</span></span>
+          <span class="line" data-reveal-line><span class="word">interfaces</span> <span class="word">eficientes.</span></span>
+        </h1>
 
-      <div class="hero__foot">
-        <p class="hero__desc" data-reveal>
-          Design, código e uma boa dose de atenção aos detalhes. Gosto de pensar em cada parte de um projeto, da ideia inicial até a última interação.
-        </p>
-        <div class="hero__actions" data-reveal>
-          <a href="#specialties" class="btn btn--primary">
-            <span>Como eu trabalho</span>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H4M11 3V10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-          <a href="https://wa.me/5566999095764" target="_blank" rel="noopener" class="btn btn--ghost">
-            <span>Falar sobre um projeto</span>
-          </a>
+        <div class="hero__foot">
+          <p class="hero__desc" data-reveal>
+            Desenvolvimento full-stack de sites e aplicações web. Do planejamento da interface à estruturação do banco de dados, entregando soluções técnicas para problemas reais.
+          </p>
+          <div class="hero__actions" data-reveal>
+            <a href="#tools" class="btn btn--primary">
+              <span>Ver ferramentas</span>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H4M11 3V10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="https://wa.me/5566999095764" target="_blank" rel="noopener" class="btn btn--ghost">
+              <span>Falar sobre um projeto</span>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="stack" id="stack" data-reveal>
-      <div class="stack__frame stack__frame--back">
-        <div class="stack__bar"><i></i><i></i><i></i></div>
-        <div class="stack__lines">
-          <span style="width:70%"></span><span style="width:45%"></span><span style="width:60%"></span>
-        </div>
-        <div class="stack__block"></div>
-      </div>
-      <div class="stack__frame stack__frame--mid">
-        <div class="stack__bar"><i></i><i></i><i></i></div>
-        <div class="stack__grid">
-          <div></div><div></div><div></div><div></div>
-        </div>
-      </div>
-      <div class="stack__frame stack__frame--front">
-        <div class="stack__bar"><i></i><i></i><i></i></div>
-        <div class="stack__lines">
-          <span style="width:55%"></span><span style="width:80%"></span>
-        </div>
-        <div class="stack__cta"></div>
+      <div class="hero__photo" id="heroPhoto">
+        <img src="eu.JPEG" alt="Renan Pietro">
+        <p class="hero__photo-caption">Renan Pietro</p>
       </div>
     </div>
 
@@ -647,81 +556,102 @@ svg{ display:block; }
     </div>
   </section>
 
+  <section class="intro" id="intro">
+    <div class="intro__inner">
+      <p class="eyebrow" data-io>Atuação</p>
+      <p class="intro__lead" data-io>
+        A ponte entre um design bem pensado e uma <span>arquitetura sólida.</span>
+      </p>
+      <p class="intro__text" data-io>
+        O desenvolvimento de um projeto exige mais do que apenas escrever código. Envolve entender o objetivo do produto, projetar uma interface intuitiva e garantir que o sistema por trás funcione com eficiência e segurança. O foco é fazer certo desde a fundação.
+      </p>
+    </div>
+  </section>
+
   <section class="about" id="about">
     <div class="about__inner">
-      <div class="about__text">
-        <p class="eyebrow" data-io>Um pouco sobre mim</p>
-        <p class="about__lead" data-io>
-          Eu gosto de <span>transformar ideias em coisas que dão vontade de usar.</span>
+      <p class="eyebrow" data-io>Visão técnica</p>
+      <p class="about__lead" data-io>
+        Soluções completas, <span>do frontend ao backend.</span>
+      </p>
+      <div class="about__secondary" data-io>
+        <p>
+          Cada projeto é construído com atenção aos detalhes de usabilidade e boas práticas de engenharia de software. O objetivo é entregar interfaces fluidas para o usuário final, mantendo o código limpo, modular e de fácil manutenção.
         </p>
-        <div class="about__secondary" data-io>
-          <p>
-            Comecei mexendo em sites por curiosidade, antes de ser trabalho. Isso não mudou muito: ainda passo mais tempo do que deveria ajustando um espaçamento ou testando uma animação até ela parecer certa.
-          </p>
-          <p>
-            Gosto de acompanhar um projeto do início ao fim — da ideia no papel até o código publicado. Para mim, uma boa interface é aquela que a pessoa nem percebe que está usando, só sente que tudo funciona como devia.
-          </p>
-        </div>
-      </div>
-
-      <div class="about__photo" data-io>
-        <div class="about__photo-frame"> <img src="eu.JPEG" alt="Renan Pietro" loading="lazy" decoding="async" width="640" height="800">
-          <div class="about__photo-mark">
-            <span></span>
-          </div>
-        </div>
-        <p class="about__photo-caption">Renan Pietro</p>
+        <p>
+          Isso significa não apenas fazer o sistema funcionar no momento da entrega, mas estruturá-lo da maneira correta para garantir escalabilidade no longo prazo.
+        </p>
       </div>
     </div>
   </section>
 
-  <section class="specialties" id="specialties">
+  <section class="specialties" id="how">
     <div class="section-head">
-      <p class="eyebrow" data-io>Como eu penso</p>
-      <h2 class="section-title" data-io>O jeito que<br>eu trabalho.</h2>
+      <p class="eyebrow" data-io>Metodologia</p>
+      <h2 class="section-title" data-io>Como eu estruturo<br>um projeto.</h2>
     </div>
     <ul class="spec-list">
       <li class="spec-item" data-io>
-        <span class="spec-item__name">Começo pela ideia</span>
-        <span class="spec-item__desc">Antes de abrir o editor, gosto de entender o problema direito. Código sem clareza vira retrabalho.</span>
+        <span class="spec-item__name">Compreensão do Escopo</span>
+        <span class="spec-item__desc">Antes de programar, é necessário entender o problema. Um bom planejamento evita retrabalho e alinha as expectativas da entrega.</span>
       </li>
       <li class="spec-item" data-io>
-        <span class="spec-item__name">Design antes do código</span>
-        <span class="spec-item__desc">A interface é pensada antes da primeira linha ser escrita. Mantém tudo coerente do começo ao fim.</span>
+        <span class="spec-item__name">Design e Usabilidade</span>
+        <span class="spec-item__desc">A interface é definida para ser clara e objetiva. Navegação eficiente e coerência visual guiam o desenvolvimento do frontend.</span>
       </li>
       <li class="spec-item" data-io>
-        <span class="spec-item__name">Tudo precisa ter um motivo</span>
-        <span class="spec-item__desc">Cada espaço, cor e animação está ali porque resolve algo — não porque parece bonito no primeiro olhar.</span>
+        <span class="spec-item__name">Arquitetura de Código</span>
+        <span class="spec-item__desc">A base do projeto deve ser sólida. O foco é manter a lógica organizada, escalável e dentro dos padrões atuais do mercado.</span>
       </li>
       <li class="spec-item" data-io>
-        <span class="spec-item__name">Detalhes importam</span>
-        <span class="spec-item__desc">É no tempo de uma transição ou no alinhamento de um pixel que um projeto deixa de ser só "pronto".</span>
+        <span class="spec-item__name">Atenção aos Detalhes</span>
+        <span class="spec-item__desc">Do tempo de carregamento ao feedback visual de um formulário, a qualidade técnica real se prova na estabilidade das pequenas interações.</span>
       </li>
       <li class="spec-item" data-io>
-        <span class="spec-item__name">Faço o difícil parecer simples</span>
-        <span class="spec-item__desc">A parte trabalhosa fica escondida no código. O que sobra pra quem usa é uma experiência tranquila.</span>
+        <span class="spec-item__name">Foco na Operação</span>
+        <span class="spec-item__desc">A complexidade fica no backend. A experiência de quem usa a aplicação e de quem administra os dados deve ser simples e direta.</span>
       </li>
     </ul>
   </section>
 
-  <section class="tech" id="tech">
+  <section class="tools" id="tools">
     <div class="section-head">
-      <p class="eyebrow" data-io>Caixa de ferramentas</p>
-      <h2 class="section-title" data-io>O que eu uso<br>pra construir.</h2>
+      <p class="eyebrow" data-io>Stack Tecnológico</p>
+      <h2 class="section-title" data-io>Ferramentas<br>e Tecnologias.</h2>
     </div>
-    <div class="tech-grid" data-io>
-      <span class="tech-item">HTML5</span>
-      <span class="tech-item">CSS3</span>
-      <span class="tech-item">JavaScript (ES6+)</span>
-      <span class="tech-item">Supabase</span>
-      <span class="tech-item">PostgreSQL</span>
-    </div>
+    <ul class="tool-list">
+      <li class="tool-item" data-io>
+        <span class="tool-item__index">01</span>
+        <span class="tool-item__name">HTML5</span>
+        <span class="tool-item__desc">Estrutura e semântica.</span>
+      </li>
+      <li class="tool-item" data-io>
+        <span class="tool-item__index">02</span>
+        <span class="tool-item__name">CSS3</span>
+        <span class="tool-item__desc">Interfaces, layouts e animações.</span>
+      </li>
+      <li class="tool-item" data-io>
+        <span class="tool-item__index">03</span>
+        <span class="tool-item__name">JavaScript</span>
+        <span class="tool-item__desc">Interações e lógica de aplicações.</span>
+      </li>
+      <li class="tool-item" data-io>
+        <span class="tool-item__index">04</span>
+        <span class="tool-item__name">Supabase</span>
+        <span class="tool-item__desc">Backend, autenticação e dados.</span>
+      </li>
+      <li class="tool-item" data-io>
+        <span class="tool-item__index">05</span>
+        <span class="tool-item__name">PostgreSQL</span>
+        <span class="tool-item__desc">Banco de dados e estruturação de informações.</span>
+      </li>
+    </ul>
   </section>
 
   <section class="contact" id="contact">
     <div class="contact__inner">
-      <p class="eyebrow" data-io>Vamos conversar?</p>
-      <h2 class="contact__title" data-io>Tem uma ideia?<br>Me conta o que<br><span>você quer construir.</span></h2>
+      <p class="eyebrow" data-io>Contato Profissional</p>
+      <h2 class="contact__title" data-io>Tem um projeto?<br>Vamos estruturar a<br><span>melhor solução.</span></h2>
 
       <a class="contact__phone" href="https://wa.me/5566999095764?text=Ol%C3%A1%2C%20Renan!%20Vi%20seu%20portf%C3%B3lio%20e%20quero%20conversar%20sobre%20uma%20ideia." target="_blank" rel="noopener" data-io>
         <span class="contact__phone-label">Iniciar conversa</span>
@@ -746,12 +676,13 @@ svg{ display:block; }
   <div class="footer__inner">
     <p class="footer__mark">Renan Pietro</p>
     <nav class="footer__links">
-      <a href="#about">Sobre</a>
+      <a href="#tools">Ferramentas</a>
+      <a href="#about">Abordagem</a>
       <a href="#contact">Contato</a>
       <a href="https://instagram.com/renanpietrox" target="_blank" rel="noopener">Instagram</a>
       <a href="https://tiktok.com/@renanpietrox" target="_blank" rel="noopener">TikTok</a>
     </nav>
-    <a class="footer__phone" href="https://wa.me/5566999095764" target="_blank" rel="noopener">WATSAPP</a>
+    <a class="footer__phone" href="https://wa.me/5566999095764" target="_blank" rel="noopener">WhatsApp</a>
   </div>
 </footer>
 
@@ -799,30 +730,17 @@ svg{ display:block; }
   ---------------------------------------------------------- */
   const burger = document.getElementById('burger');
   const navMobile = document.getElementById('navMobile');
-  let scrollY = 0;
-
-  function setMenu(open){
-    navMobile.classList.toggle('is-open', open);
-    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    navMobile.setAttribute('aria-hidden', open ? 'false' : 'true');
-    if (open){
-      scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = -scrollY + 'px';
-      document.body.style.width = '100%';
-    } else {
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      window.scrollTo(0, scrollY);
-    }
-  }
-
   burger.addEventListener('click', () => {
-    setMenu(!navMobile.classList.contains('is-open'));
+    const open = navMobile.classList.toggle('is-open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.style.overflow = open ? 'hidden' : '';
   });
   navMobile.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => setMenu(false));
+    a.addEventListener('click', () => {
+      navMobile.classList.remove('is-open');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
   });
 
   /* ----------------------------------------------------------
@@ -875,13 +793,13 @@ svg{ display:block; }
       }, afterWords + i * 90);
     });
 
-    // Stage 4: signature stack element
-    const stack = document.getElementById('stack');
+    // Stage 4: hero photo
+    const heroPhoto = document.getElementById('heroPhoto');
     setTimeout(() => {
-      if (stack){
-        stack.style.transition = 'opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1)';
-        stack.style.opacity = '1';
-        stack.style.transform = 'translateY(-50%)';
+      if (heroPhoto){
+        heroPhoto.style.transition = 'opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1)';
+        heroPhoto.style.opacity = '1';
+        heroPhoto.style.transform = 'none';
       }
       const scrollHint = document.querySelector('.hero__scroll');
       if (scrollHint){
@@ -912,43 +830,6 @@ svg{ display:block; }
       });
     }, { threshold: 0.16, rootMargin: '0px 0px -6% 0px' });
     targets.forEach(t => io.observe(t));
-  }
-
-  /* ----------------------------------------------------------
-     Subtle mouse parallax — hero signature stack
-  ---------------------------------------------------------- */
-  function initStackParallax(){
-    if (reduceMotion) return;
-    const stack = document.getElementById('stack');
-    if (!stack) return;
-    const frames = stack.querySelectorAll('.stack__frame');
-    const baseTransforms = [
-      { x: 26, y: -34, r: -6, s: .92 },
-      { x: 10, y: -6,  r: -2, s: .97 },
-      { x: -16, y: 20, r: 3,  s: 1   }
-    ];
-
-    let targetX = 0, targetY = 0, curX = 0, curY = 0;
-
-    stack.addEventListener('mousemove', (e) => {
-      const rect = stack.getBoundingClientRect();
-      targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-      targetY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-    });
-    stack.addEventListener('mouseleave', () => { targetX = 0; targetY = 0; });
-
-    function loop(){
-      curX += (targetX - curX) * 0.08;
-      curY += (targetY - curY) * 0.08;
-      frames.forEach((f, i) => {
-        const b = baseTransforms[i];
-        const depth = (i + 1) * 3.5;
-        f.style.transform =
-          `translate(${b.x + curX * depth}px, ${b.y + curY * depth}px) rotate(${b.r + curX * 2}deg) scale(${b.s})`;
-      });
-      requestAnimationFrame(loop);
-    }
-    requestAnimationFrame(loop);
   }
 
   /* ----------------------------------------------------------
@@ -984,7 +865,6 @@ svg{ display:block; }
     updateNav();
     runIntro();
     initInView();
-    initStackParallax();
     initCursorField();
   });
 })();
