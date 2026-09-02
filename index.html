@@ -38,7 +38,10 @@
 
 *{ margin:0; padding:0; box-sizing:border-box; }
 
-html{ scroll-behavior:smooth; }
+html{ 
+  scroll-behavior:smooth; 
+  scroll-padding-top: 120px; /* Impede que as seções fiquem atrás do menu fixo */
+}
 
 body{
   background:var(--bone);
@@ -115,11 +118,21 @@ svg{ display:block; }
   padding:10px 10px 10px 20px;
 }
 
+/* Deixa o fundo do nav invisível quando o menu mobile abre */
+.nav.is-menu-open .nav__inner{
+  background:transparent !important;
+  border-color:transparent !important;
+  box-shadow:none !important;
+  backdrop-filter:none !important;
+}
+
 .nav__mark{
   font-family:var(--font-display);
   font-weight:500;
   font-size:17px;
   letter-spacing:-.01em;
+  position: relative;
+  z-index: 101;
 }
 .nav__mark span{ color:var(--ink-faint); }
 
@@ -148,34 +161,84 @@ svg{ display:block; }
 }
 .nav__cta:hover{ background:var(--accent); transform:translateY(-1px); }
 
+/* ============================================================
+   BOTÕES GERAIS
+============================================================ */
+.btn{
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:var(--font-mono); font-size:13px; letter-spacing:.05em; text-transform:uppercase;
+  padding:15px 24px; border-radius:100px;
+  transition:transform .3s var(--ease-out), background .3s var(--ease-out), color .3s var(--ease-out), border-color .3s;
+}
+.btn svg{ transition:transform .3s var(--ease-out); }
+.btn--primary{ background:var(--ink); color:var(--bone); }
+.btn--primary:hover{ background:var(--accent); transform:translateY(-2px); }
+.btn--primary:hover svg{ transform:translate(2px,-2px); }
+.btn--ghost{ border:1px solid var(--line-strong); }
+.btn--ghost:hover{ border-color:var(--ink); transform:translateY(-2px); }
+
+/* ============================================================
+   MENU MOBILE (Hamburger & Overlay)
+============================================================ */
 .nav__burger{
-  display:none; width:38px; height:38px; border-radius:50%;
+  display:none; width:44px; height:44px; border-radius:50%;
   align-items:center; justify-content:center; flex-direction:column; gap:5px;
+  position: relative; z-index: 101;
 }
 .nav__burger span{
-  width:18px; height:1.4px; background:var(--ink); transition:transform .3s var(--ease-out), opacity .3s;
+  width:20px; height:1.5px; background:var(--ink); 
+  transition:transform .3s var(--ease-out), background .3s;
 }
-.nav__burger[aria-expanded="true"] span:first-child{ transform:translateY(3.2px) rotate(45deg); }
-.nav__burger[aria-expanded="true"] span:last-child{ transform:translateY(-3.2px) rotate(-45deg); }
+.nav__burger[aria-expanded="true"] span:first-child{ transform:translateY(3.25px) rotate(45deg); }
+.nav__burger[aria-expanded="true"] span:last-child{ transform:translateY(-3.25px) rotate(-45deg); }
 
 .nav__mobile{
   display:none;
   position:fixed; inset:0; z-index:90;
   background:var(--bone);
-  flex-direction:column; align-items:flex-start; justify-content:center; gap:28px;
-  padding:0 var(--gutter);
-  opacity:0; visibility:hidden; transform:translateY(-8px);
+  flex-direction:column; justify-content:space-between;
+  padding:140px var(--gutter) 60px;
+  opacity:0; visibility:hidden; transform:translateY(-12px);
   transition:opacity .4s var(--ease-out), transform .4s var(--ease-out), visibility .4s;
 }
 .nav__mobile.is-open{ opacity:1; visibility:visible; transform:translateY(0); }
-.nav__mobile a{
-  font-family:var(--font-display); font-size:34px; font-weight:500;
+
+.nav__mobile-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
-.nav__mobile-cta{
-  margin-top:12px; font-family:var(--font-mono); font-size:13px;
-  letter-spacing:.06em; text-transform:uppercase;
-  border:1px solid var(--line-strong); border-radius:100px; padding:12px 22px;
+.nav__mobile-inner .eyebrow { margin-bottom: 10px; }
+
+/* Aplica estilo principal apenas aos links do menu, não aos do rodapé */
+.nav__mobile-inner > a:not(.btn){
+  font-family:var(--font-display); 
+  font-size:clamp(36px, 10vw, 54px); 
+  font-weight:420;
+  letter-spacing:-.02em;
+  color:var(--ink);
+  width: fit-content;
+  transition:color .3s;
 }
+.nav__mobile-inner > a:not(.btn):hover { color: var(--accent); }
+
+.nav__mobile-cta { margin-top: 24px; }
+
+.nav__mobile-footer {
+  display: flex;
+  gap: 24px;
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+}
+.nav__mobile-footer a {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--ink-faint);
+  transition: color .3s;
+}
+.nav__mobile-footer a:hover { color: var(--accent); }
 
 /* ============================================================
    HERO
@@ -208,7 +271,12 @@ svg{ display:block; }
   line-height:0.98;
   letter-spacing:-.02em;
 }
-.hero__title .line{ display:block; overflow:hidden; }
+.hero__title .line{ 
+  display:block; 
+  overflow:hidden; 
+  padding-bottom: 0.2em; /* Corrige a letra g/j/p cortadas pela base */
+  margin-bottom: -0.2em; 
+}
 .hero__title .word{ display:inline-block; will-change:transform; }
 .word--accent{ font-style:italic; color:var(--accent); font-weight:400; }
 
@@ -218,19 +286,6 @@ svg{ display:block; }
   max-width:480px;
 }
 .hero__actions{ display:flex; gap:14px; margin-top:36px; flex-wrap:wrap; }
-
-.btn{
-  display:inline-flex; align-items:center; gap:10px;
-  font-family:var(--font-mono); font-size:13px; letter-spacing:.05em; text-transform:uppercase;
-  padding:15px 24px; border-radius:100px;
-  transition:transform .3s var(--ease-out), background .3s var(--ease-out), color .3s var(--ease-out), border-color .3s;
-}
-.btn svg{ transition:transform .3s var(--ease-out); }
-.btn--primary{ background:var(--ink); color:var(--bone); }
-.btn--primary:hover{ background:var(--accent); transform:translateY(-2px); }
-.btn--primary:hover svg{ transform:translate(2px,-2px); }
-.btn--ghost{ border:1px solid var(--line-strong); }
-.btn--ghost:hover{ border-color:var(--ink); transform:translateY(-2px); }
 
 .hero__scroll{
   position:absolute; left:var(--gutter); bottom:36px;
@@ -501,18 +556,31 @@ svg{ display:block; }
       <a href="#about"><span>Abordagem</span></a>
       <a href="#contact"><span>Contato</span></a>
     </nav>
-    <a class="nav__cta" href="https://wa.me/5566999095764?text=Ol%C3%A1%2C%20Renan!%20Vi%20seu%20portf%C3%B3lio%20e%20quero%20conversar%20sobre%20um%20projeto." target="_blank" rel="noopener" data-reveal>
+    <a class="nav__cta" href="https://wa.me/5566999095764?text=Ol%C3%A1%2C%20Renan!%20Vi%20seu%20portf%C3%B3lio%20e%20quero%20conversar%20sobre%20uma%20ideia." target="_blank" rel="noopener" data-reveal>
       <span>Iniciar projeto</span>
     </a>
     <button class="nav__burger" id="burger" aria-label="Abrir menu" aria-expanded="false">
       <span></span><span></span>
     </button>
   </div>
+  
   <div class="nav__mobile" id="navMobile">
-    <a href="#tools">Ferramentas</a>
-    <a href="#about">Abordagem</a>
-    <a href="#contact">Contato</a>
-    <a href="https://wa.me/5566999095764" target="_blank" rel="noopener" class="nav__mobile-cta">Iniciar projeto ↗</a>
+    <div class="nav__mobile-inner">
+      <p class="eyebrow">Navegação</p>
+      <a href="#tools">Ferramentas</a>
+      <a href="#about">Abordagem</a>
+      <a href="#contact">Contato</a>
+      
+      <a href="https://wa.me/5566999095764?text=Ol%C3%A1%2C%20Renan!%20Vi%20seu%20portf%C3%B3lio%20e%20quero%20conversar%20sobre%20uma%20ideia." target="_blank" rel="noopener" class="btn btn--primary nav__mobile-cta">
+        <span>Iniciar projeto</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H4M11 3V10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="nav__mobile-footer">
+      <a href="https://instagram.com/renanpietrox" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://tiktok.com/@renanpietrox" target="_blank" rel="noopener">TikTok</a>
+    </div>
   </div>
 </header>
 
@@ -537,7 +605,7 @@ svg{ display:block; }
               <span>Ver ferramentas</span>
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H4M11 3V10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
-            <a href="https://wa.me/5566999095764" target="_blank" rel="noopener" class="btn btn--ghost">
+            <a href="https://wa.me/5566999095764?text=Ol%C3%A1%2C%20Renan!%20Vi%20seu%20portf%C3%B3lio%20e%20quero%20conversar%20sobre%20uma%20ideia." target="_blank" rel="noopener" class="btn btn--ghost">
               <span>Falar sobre um projeto</span>
             </a>
           </div>
@@ -682,7 +750,7 @@ svg{ display:block; }
       <a href="https://instagram.com/renanpietrox" target="_blank" rel="noopener">Instagram</a>
       <a href="https://tiktok.com/@renanpietrox" target="_blank" rel="noopener">TikTok</a>
     </nav>
-    <a class="footer__phone" href="https://wa.me/5566999095764" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="footer__phone" href="https://wa.me/5566999095764?text=Ol%C3%A1%2C%20Renan!%20Vi%20seu%20portf%C3%B3lio%20e%20quero%20conversar%20sobre%20uma%20ideia." target="_blank" rel="noopener">WhatsApp</a>
   </div>
 </footer>
 
@@ -730,17 +798,31 @@ svg{ display:block; }
   ---------------------------------------------------------- */
   const burger = document.getElementById('burger');
   const navMobile = document.getElementById('navMobile');
+  
   burger.addEventListener('click', () => {
     const open = navMobile.classList.toggle('is-open');
     burger.setAttribute('aria-expanded', open ? 'true' : 'false');
     document.body.style.overflow = open ? 'hidden' : '';
+    nav.classList.toggle('is-menu-open', open); // Remove glass background
   });
+
   navMobile.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => {
       navMobile.classList.remove('is-open');
       burger.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
+      nav.classList.remove('is-menu-open'); // Reseta nav styles
     });
+  });
+
+  // Fecha o menu automaticamente caso a janela seja redimensionada para desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 980 && navMobile.classList.contains('is-open')) {
+      navMobile.classList.remove('is-open');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      nav.classList.remove('is-menu-open');
+    }
   });
 
   /* ----------------------------------------------------------
